@@ -1,7 +1,18 @@
 import { createStore } from 'redux'
+import Server from './server.js'
 export default function app() {
 
-  console.log(createStore(function (state = [], action) {
-    return state;
-  }));
+const storeDispatchProcessor = function (state,action) {
+
+
+
+}
+
+const store = createStore(storeDispatchProcessor);
+const server = new Server(store)
+  //const views = new Views(store)
+
+  server.queryServer();
+
+
 }
