@@ -2,7 +2,7 @@ export default function loginView(store) {
     //First define the HTML
     let $html = $(`
         <div id="login-form">
-            <input id="username-form" type="text" placeholder="username">
+            <input id="username-form" type="text" placeholder="email">
             <input id="password-form" type="password" placeholder="password">
             <button id="login-submit-btn">submit</submit>
         </div>
@@ -17,7 +17,7 @@ export default function loginView(store) {
             password: $('#password-form').val()
         });
     })
-    
+
     //Finally return the html
     return $html;
 };
