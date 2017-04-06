@@ -1,55 +1,80 @@
 export default function Server(store) {
 
-  const QUERY_URL = 'http://api.backendless.com/v1/data/Users';
-  const AUTH_URL = 'https://api.backendless.com/v1/users/login';
-  const APP_ID = '463BBA56-92E8-5638-FF55-DAD64662AC00';
-  const SECRET_KEY = 'F5FC3FC2-8EAB-C177-FF31-3784553E4E00';
+    const QUERY_URL = 'http://api.backendless.com/v1/data/todos';
+    const AUTH_URL = 'https://api.backendless.com/v1/users/login';
+    const APP_ID = 'C5A918C4-98E6-BC28-FF40-EC989F505900';
+    const SECRET_KEY = '6A32A4FF-92E6-5071-FF2D-A6B98A969100';
 
-  this.queryServer = function() {
+    this.createTodo = function(action) {
+        let settings = {
+            type: 'POST',
+            contentType: 'application/json',
+            url: QUERY_URL,
+            headers: {
+                "application-id": APP_ID,
+                "secret-key": SECRET_KEY,
+                "user-token": action.userToken
+            }
+        }
 
-    let settings = {
-      type: 'GET',
-      contentType: 'application/json',
-      url: QUERY_URL,
-      headers: {
-        "application-id": APP_ID,
-        "secret-key": SECRET_KEY,
-      }
+        $.ajax(settings).then(function(data, status, xhr) {
+            store.dispatch({
+                type: "HANDLE_TODO_QUERY",
+                data
+            });
+        });
     }
 
-    $.ajax(settings).then(function(data,status,xhr){
-      console.log(data)
-    })
+    this.getTodos = function(action) {
+        let settings = {
+            type: 'GET',
+            contentType: 'application,json',
+            url: QUERY_URL,
+            headers: {
+                "application-id": APP_ID,
+                "secret-key": SECRET_KEY,
+                "user-token": action.userToken
+            }
+        }
 
-  }
-
-  this.authenticateUser = function(username,password) {
-    console.log("authenticating...")
-    let settings = {
-      type: 'POST',
-      contentType: 'application/json',
-      applicationType: 'REST',
-      url: AUTH_URL,
-      headers: {
-        "application-id": APP_ID,
-        "secret-key": SECRET_KEY,
-      },
-      data: JSON.stringify({
-        "login": username,
-        "password": password,
-      }),
-      processData: false,
-      error: function(data,status,xhr) {
-        alert("Invalid Username or Password")
-      }
+        $.ajax(settings).then(function(data, status, xhr) {
+            store.dispatch({
+                type: "HANDLE_TODO_QUERY",
+                data
+            });
+        });
     }
 
-    $.ajax(settings).then(function(data,status,xhr) {
-      console.log("response ",data)
-      let userToken = data["user-token"];
-      let name = data["name"];
-      store.dispatch({type:"HANDLE_LOGIN",userToken,name})
-    })
+    this.authenticateUser = function(username, password) {
+        console.log("authenticating...")
+        let settings = {
+            type: 'POST',
+            contentType: 'application/json',
+            applicationType: 'REST',
+            url: AUTH_URL,
+            headers: {
+                "application-id": APP_ID,
+                "secret-key": SECRET_KEY,
+            },
+            data: JSON.stringify({
+                "login": username,
+                "password": password,
+            }),
+            processData: false,
+            error: function(data, status, xhr) {
+                alert("Invalid Username or Password")
+            }
+        };
 
-  }
-  }
+        $.ajax(settings).then(function(data, status, xhr) {
+            console.log("response ", data)
+            let userToken = data["user-token"];
+            let name = data["name"];
+            store.dispatch({
+                type: "HANDLE_LOGIN",
+                userToken,
+                name
+            })
+        });
+    };
+};
