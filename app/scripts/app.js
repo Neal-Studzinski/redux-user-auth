@@ -1,9 +1,9 @@
-import {
-    createStore
-} from 'redux';
+import { createStore} from 'redux';
 import Server from './server.js';
 import Views from './views.js';
-import loginView from './login_view.js'
+import loginView from './login_view.js';
+import taskView from './task_view';
+import welcomeView from './welcome_view.js';
 export default function app() {
 
     const initialState = {
@@ -37,7 +37,7 @@ export default function app() {
             case "HANDLE_LOGIN":
                 log(action.type);
                 views.hideLoginForm();
-                views.showWelcomeBanner(action);
+                //views.welcomeView(action);
                 server.getTodos(action);
                 let tempState = Object.assign({}, state, {
                     userToken: action.userToken,

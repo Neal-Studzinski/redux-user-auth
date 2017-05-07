@@ -1,6 +1,6 @@
 export default function Server(store) {
 
-    const QUERY_URL = 'http://api.backendless.com/v1/data/todos';
+    const QUERY_URL = 'http://api.backendless.com/v1/data/tasks';
     const AUTH_URL = 'https://api.backendless.com/v1/users/login';
     const APP_ID = 'C5A918C4-98E6-BC28-FF40-EC989F505900';
     const SECRET_KEY = '6A32A4FF-92E6-5071-FF2D-A6B98A969100';

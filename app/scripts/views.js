@@ -1,6 +1,7 @@
 export default function Views(store) {
 
 
+    
     this.showLoginForm = function() {
             $('#login-form').show();
     }
