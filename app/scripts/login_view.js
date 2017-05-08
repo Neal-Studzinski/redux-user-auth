@@ -1,23 +1,25 @@
-export default function loginView(store) {
-    //First define the HTML
+export default function ( store ) {
+
     let $html = $(`
-        <div id="login-form">
-            <input id="username-form" type="text" placeholder="email">
-            <input id="password-form" type="password" placeholder="password">
-            <button id="login-submit-btn">submit</submit>
-        </div>
-    `);
+        <section class="login-view">
+            <h1>Task Management App with Backendless</h1>
+            <form id="login" action="" method="">
+                <label for="username">username: </label>
+                <input id="username" type="text" placeholder="@example.com" value="user@example.com">
+                <label for="password">password: </label>
+                <input id="password" type="password" value="password">
+                <input type="submit" value="login">
+            </form>
+        </section>
+  `);
 
-    //Then Add any click handler
-    $($html).find('#login-submit-btn').on('click', function(e) {
-        console.log("login clicked");
-        store.dispatch({
-            type: "AUTHENTICATE_USER",
-            username: $('#username-form').val(),
-            password: $('#password-form').val()
-        });
-    })
+  $html.find('#login').on('submit', (event) => {
+      event.preventDefault();
+      
+      var username = event.target.elements.username.value;
+      var password = event.target.elements.password.value;
+      store.dispatch({ type: "LOGGING_IN", username: username, password: password });
+    });
 
-    //Finally return the html
     return $html;
-};
+}
